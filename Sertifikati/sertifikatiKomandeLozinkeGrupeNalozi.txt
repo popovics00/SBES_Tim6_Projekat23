@@ -1,0 +1,36 @@
+LOKACIJA  >>  C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x64
+
+
+
+KOMANDE >>
+
+- Pravljenje ovlscenja sertifikata
+	makecert -n "CN=Sertifikati23zad" -r -sv Sertifikati23zad.pvk Sertifikati23zad.cer
+
+- Sertifikati za service
+	makecert -sv WCFService.pvk -iv Sertifikati23zad.pvk -n "CN=wcfservice" -pe -ic Sertifikati23zad.cer WCFService.cer -sr localmachine -ss My -sky exchange
+	pvk2pfx.exe /pvk WCFService.pvk /pi 123456 /spc WCFService.cer /pfx WCFService.pfx
+
+
+- Sertifikati za klijentske naloge
+	makecert -sv SenzorPritiska1.pvk -iv Sertifikati23zad.pvk -n "CN=senzorPritiska1,OU=SenzorPritiska" -pe -ic Sertifikati23zad.cer SenzorPritiska1.cer -sr localmachine -ss My -sky exchange
+	makecert -sv SenzorPritiska2.pvk -iv Sertifikati23zad.pvk -n "CN=senzorPritiska2,OU=SenzorPritiska" -pe -ic Sertifikati23zad.cer SenzorPritiska2.cer -sr localmachine -ss My -sky exchange
+	makecert -sv SenzorTemperature1.pvk -iv Sertifikati23zad.pvk -n "CN=senzorTemperature1,OU=SenzorTemperature" -pe -ic Sertifikati23zad.cer SenzorTemperature1.cer -sr localmachine -ss My -sky exchange
+	makecert -sv SenzorTemperature2.pvk -iv Sertifikati23zad.pvk -n "CN=senzorTemperature2,OU=SenzorTemperature" -pe -ic Sertifikati23zad.cer SenzorTemperature2.cer -sr localmachine -ss My -sky exchange
+	makecert -sv SenzorVlaznosti1.pvk -iv Sertifikati23zad.pvk -n "CN=senzorVlaznosti1,OU=SenzorVlaznosti" -pe -ic Sertifikati23zad.cer SenzorVlaznosti1.cer -sr localmachine -ss My -sky exchange
+	makecert -sv SenzorVlaznosti2.pvk -iv Sertifikati23zad.pvk -n "CN=senzorVlaznosti2,OU=SenzorVlaznosti" -pe -ic Sertifikati23zad.cer SenzorVlaznosti2.cer -sr localmachine -ss My -sky exchange
+
+
+	pvk2pfx.exe /pvk SenzorPritiska1.pvk /pi 123456 /spc SenzorPritiska1.cer /pfx SenzorPritiska1.pfx
+	pvk2pfx.exe /pvk SenzorPritiska2.pvk /pi 123456 /spc SenzorPritiska2.cer /pfx SenzorPritiska2.pfx
+	pvk2pfx.exe /pvk SenzorTemperature1.pvk /pi 123456 /spc SenzorTemperature1.cer /pfx SenzorTemperature1.pfx
+	pvk2pfx.exe /pvk SenzorTemperature2.pvk /pi 123456 /spc SenzorTemperature2.cer /pfx SenzorTemperature2.pfx
+	pvk2pfx.exe /pvk SenzorVlaznosti1.pvk /pi 123456 /spc SenzorVlaznosti1.cer /pfx SenzorVlaznosti1.pfx
+	pvk2pfx.exe /pvk SenzorVlaznosti2.pvk /pi 123456 /spc SenzorVlaznosti2.cer /pfx SenzorVlaznosti2.pfx
+
+
+USERNAMEovi: (sifre za sve su 123456)
+senzorPritiska1, senzorPritiska2, senzorTemperature1, senzorTemperature2, senzorVlaznosti1, senzorVlaznosti2
+
+GRUPE:
+SenzorPritiska, SenzorTemperature, SenzorVlaznosti
