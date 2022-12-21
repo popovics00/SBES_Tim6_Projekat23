@@ -54,8 +54,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\ClientCmds.cs" />
     <Compile Include="Enums\UserGroup.cs" />
-    <Compile Include="IWCFContract.cs" />
+    <Compile Include="ICComunication.cs" />
+    <Compile Include="IDatabase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

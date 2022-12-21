@@ -7,6 +7,7 @@ using Contracts;
 using Manager;
 using System.Security.Principal;
 using System.Security.Cryptography.X509Certificates;
+using Contracts.Enums;
 
 namespace ClientApp
 {
@@ -51,5 +52,10 @@ namespace ClientApp
 
 			this.Close();
 		}
-	}
+
+        public bool SendMessage(ClientCmds cmdForClient, byte[] sign)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
