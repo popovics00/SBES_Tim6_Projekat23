@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums\ClientCmds.cs" />
+    <Compile Include="Enums\Hash.cs" />
     <Compile Include="Enums\UserGroup.cs" />
     <Compile Include="ICComunication.cs" />
     <Compile Include="IDatabase.cs" />
