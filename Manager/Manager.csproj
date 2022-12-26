@@ -56,17 +56,27 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CertManager.cs" />
-    <Compile Include="ClientCertValidator.cs" />
     <Compile Include="DigitalSignature.cs" />
     <Compile Include="Formatter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceCertValidator.cs" />
+    <Compile Include="RolesSettings.cs" />
+    <Compile Include="RolesSettingsFile.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RolesSettingsFile.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Contracts\Contracts.csproj">
       <Project>{6974D73C-F498-465A-A5C0-5CFF516D28F2}</Project>
       <Name>Contracts</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="RolesSettingsFile.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>RolesSettingsFile.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
