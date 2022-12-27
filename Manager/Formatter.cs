@@ -30,11 +30,10 @@ namespace Manager
 			}
             else if (winLogonName.Contains("CN"))
             {
-                // sertifikati, name je formiran kao CN=imeKorisnika;
                 int startIndex = winLogonName.IndexOf("=") + 1;
                 int endIndex = winLogonName.IndexOf(";");
-                string s = winLogonName.Substring(startIndex, endIndex - startIndex);
-                return s;
+                string sertifikat = winLogonName.Substring(startIndex, endIndex - startIndex);
+                return sertifikat;
             }
             else
 			{

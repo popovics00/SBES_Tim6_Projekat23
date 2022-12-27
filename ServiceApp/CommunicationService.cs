@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ServiceApp
 {
-    public class ComunicationService : ICComunication
+    public class ComunicationService : DbService, ICComunication
     {
         public bool SendMessage(ClientCmds cmdForClient, byte[] digSignature)
         {
@@ -37,27 +37,112 @@ namespace ServiceApp
             }
             if (group == UserGroup.SenzorPritiska)
             {
-                return true;
+                if (cmdForClient.ToString().ToLower().Equals("stop"))
+                {
+                    lock (DbService.senzoPritiskaDatabaseOpenLock)
+                    {
+                        DbService.senzoPritiskaDatabaseOpen = true;
+                    }
+                    Console.WriteLine("DATABASE (SenzorPritiskaDB) | Baza je sada otkljucana");
+                    return true;
+                }
+                else if (cmdForClient.ToString().ToLower().Equals("start"))
+                {
+                    lock (DbService.senzoPritiskaDatabaseOpenLock)
+                    {
+                        if (!DbService.senzoPritiskaDatabaseOpen)
+                        {
+                            Console.WriteLine("DATABASE (SenzorPritiskaDB) | Pristup bazi je BLOKIRAN, pa ne mozete pristupiti");
+                            return false;
+                        }
+                        else
+                        {
+                            DbService.senzoPritiskaDatabaseOpen = false;
+                            Console.WriteLine("DATABASE (SenzorPritiskaDB) | Baza je sada zakljucan");
+                            return true;
+                        }
+                    }
+                }
+                else
+                {
+                    return false;
+                }
             }
             else if (group == UserGroup.SenzorTemperature)
             {
-                return true;
+                if (cmdForClient.ToString().ToLower().Equals("stop"))
+                {
+                    lock (DbService.senzorTemperatureDatabaseOpenLock)
+                    {
+                        DbService.senzorTemperatureDatabaseOpen = true;
+                    }
+                    Console.WriteLine("DATABASE (SenzorPritiskaDB) | Baza je sada otkljucana");
+                    return true;
+                }
+                else if (cmdForClient.ToString().ToLower().Equals("start"))
+                {
+                    lock (DbService.senzorTemperatureDatabaseOpenLock)
+                    {
+                        if (!DbService.senzorTemperatureDatabaseOpen)
+                        {
+                            Console.WriteLine("DATABASE (SenzorPritiskaDB) | Pristup bazi je BLOKIRAN, pa ne mozete pristupiti");
+                            return false;
+                        }
+                        else
+                        {
+                            DbService.senzorTemperatureDatabaseOpen = false;
+                            Console.WriteLine("DATABASE (SenzorPritiskaDB) | Baza je sada zakljucan");
+                            return true;
+                        }
+                    }
+                }
+                else
+                {
+                    return false;
+                }
             }
             else if (group == UserGroup.SenzorVlaznosti)
             {
-                return true;
+                if (cmdForClient.ToString().ToLower().Equals("stop"))
+                {
+                    lock (DbService.senzorVlaznostiDatabaseOpenLock)
+                    {
+                        DbService.senzorVlaznostiDatabaseOpen = true;
+                    }
+                    Console.WriteLine("DATABASE (SenzorPritiskaDB) | Baza je sada otkljucana");
+                    return true;
+                }
+                else if (cmdForClient.ToString().ToLower().Equals("start"))
+                {
+                    lock (DbService.senzorVlaznostiDatabaseOpenLock)
+                    {
+                        if (!DbService.senzorVlaznostiDatabaseOpen)
+                        {
+                            Console.WriteLine("DATABASE (SenzorPritiskaDB) | Pristup bazi je BLOKIRAN, pa ne mozete pristupiti");
+                            return false;
+                        }
+                        else
+                        {
+                            DbService.senzorVlaznostiDatabaseOpen = false;
+                            Console.WriteLine("DATABASE (SenzorPritiskaDB) | Baza je sada zakljucan");
+                            return true;
+                        }
+                    }
+                }
+                else
+                {
+                    return false;
+                }
             }
             else if (group == UserGroup.NULL)
-            {
-                return true;
-            }
+                throw new Exception("ALERT | Klijent nije u grupi.");
             else
                 return false;
         }
 
         public void TestCommunication()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("INFO | Ovom porukom server potvrdjuje da je komunikacija ostvarena!");
         }
     }
 }

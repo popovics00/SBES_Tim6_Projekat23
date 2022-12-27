@@ -16,13 +16,16 @@ namespace ServiceApp
     {
         private static string[] dataBasePaths = { "senzorPritiska.txt", "senzorTemperature.txt", "senzorVlaznosti.txt" };
 
-        private static bool senzoPritiskaDatabaseOpen = true;
-        private static bool senzorTemperatureDatabaseOpen = true;
-        private static bool senzorVlaznostiDatabaseOpen = true;
+        public static bool senzoPritiskaDatabaseOpen = true;
+        public static bool senzorTemperatureDatabaseOpen = true;
+        public static bool senzorVlaznostiDatabaseOpen = true;
+        public static object senzoPritiskaDatabaseOpenLock = new object();
+        public static object senzorTemperatureDatabaseOpenLock = new object();
+        public static object senzorVlaznostiDatabaseOpenLock = new object();
 
         public void TestCommunication()
         {
-            Console.WriteLine("komunikacija uspesna!");
+            Console.WriteLine("INFO | Ovom porukom server potvrdjuje da je komunikacije sa bazom ostvarena!");
         }
 
         public void WriteToSenzorPritiskaDB(string report, byte[] digSignature)
