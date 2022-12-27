@@ -16,6 +16,7 @@ namespace ClientApp
 		static void Main(string[] args)
 		{
 			string serverCertNC = "wcfservice";
+			bool lockBaze;
 
 			NetTcpBinding binding = new NetTcpBinding();
 			binding.Security.Transport.ClientCredentialType = TcpClientCredentialType.Certificate;
@@ -30,9 +31,9 @@ namespace ClientApp
 
 			ClientToClient proxyCommunication = new ClientToClient(binding, CommunicationEndpointAddress);
 
-			byte[] signatureStop = DigitalSignature.Create(ClientCmds.stop.ToString(), Hash.SHA1, signatureCertificate);
-			byte[] signatureStart = DigitalSignature.Create(ClientCmds.start.ToString(), Hash.SHA1, signatureCertificate);
-			byte[] signMessage;
+			byte[] signatureStopPoruke = DigitalSignature.Create(ClientCmds.stop.ToString(), Hash.SHA1, signatureCertificate);
+			byte[] signatureStartPoruke = DigitalSignature.Create(ClientCmds.start.ToString(), Hash.SHA1, signatureCertificate);
+			byte[] signaturePoruke;
 
 			//UTVRDJUJEMO GRUPU
 			UserGroup group = proxyCommunication.group; //grupa korisnika koji je pokrenuo konzolu
@@ -40,10 +41,43 @@ namespace ClientApp
 
 			while(true)
 			{
-				proxyCommunication.TestCommunication();
-				Console.WriteLine("TestCommunication() finished. Press <enter> to continue ...");
-				Thread.Sleep(10000);
-				Console.ReadLine();
+				//proxyCommunication.TestCommunication();
+                Console.WriteLine("--------------------------------------------------------------");
+				Console.WriteLine("Stisni ENTER da startujes slanje poruke. IZLAZ - za izlaz");
+				Console.WriteLine("--------------------------------------------------------------");
+				if (Console.ReadLine().ToUpper().Equals("IZLAZ"))
+					break;
+				lockBaze = proxyCommunication.SendMessage(ClientCmds.start, signatureStartPoruke);
+				Thread.Sleep(2000);
+                Console.WriteLine("Slanje poruke...");
+				if (lockBaze)
+                {
+                    Console.WriteLine("Spremni smo za slanje poruka.");
+					string poruka = "Funkcija za generisanje poruka";
+					signaturePoruke = DigitalSignature.Create(poruka, Hash.SHA1, signatureCertificate);
+					if(group == UserGroup.SenzorPritiska)
+					{
+                        Console.WriteLine("Senzor pritiska odradjen");
+						proxyCommunication.SendMessage(ClientCmds.stop, signatureStopPoruke);
+					}
+					else if(group == UserGroup.SenzorTemperature)
+                    {
+						Console.WriteLine("Senzor temperature odradjen");
+						proxyCommunication.SendMessage(ClientCmds.stop, signatureStopPoruke);
+					}
+					else if(group == UserGroup.SenzorVlaznosti)
+                    {
+						Console.WriteLine("Senzor vlaznosti odradjen");
+						proxyCommunication.SendMessage(ClientCmds.stop, signatureStopPoruke);
+                    }
+                    else
+                    {
+                        Console.WriteLine("ERROR | Doslo je do greske ocitavanje vase grupe");
+						break;
+                    }
+
+				}
+
 			}
 		}
 	}
