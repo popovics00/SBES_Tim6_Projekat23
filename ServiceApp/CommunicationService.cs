@@ -142,7 +142,7 @@ namespace ServiceApp
 
         public void TestCommunication()
         {
-            Console.WriteLine("INFO | Ovom porukom server potvrdjuje da je komunikacija ostvarena!");
+            Console.WriteLine("INFO | Test komunikacije uspesno ostvaren!");
         }
     }
 }
