@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.902
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceApp", "ServiceApp\ServiceApp.csproj", "{7CE88F25-78E1-487F-A890-AF321394FF7F}"
 EndProject
@@ -24,8 +24,8 @@ Global
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{7CE88F25-78E1-487F-A890-AF321394FF7F}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{7CE88F25-78E1-487F-A890-AF321394FF7F}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{7CE88F25-78E1-487F-A890-AF321394FF7F}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{7CE88F25-78E1-487F-A890-AF321394FF7F}.Debug|Mixed Platforms.ActiveCfg = Debug|x64
+		{7CE88F25-78E1-487F-A890-AF321394FF7F}.Debug|Mixed Platforms.Build.0 = Debug|x64
 		{7CE88F25-78E1-487F-A890-AF321394FF7F}.Debug|x64.ActiveCfg = Debug|x64
 		{7CE88F25-78E1-487F-A890-AF321394FF7F}.Debug|x64.Build.0 = Debug|x64
 		{7CE88F25-78E1-487F-A890-AF321394FF7F}.Debug|x86.ActiveCfg = Debug|x86
@@ -38,8 +38,8 @@ Global
 		{7CE88F25-78E1-487F-A890-AF321394FF7F}.Release|x86.ActiveCfg = Release|x86
 		{7CE88F25-78E1-487F-A890-AF321394FF7F}.Release|x86.Build.0 = Release|x86
 		{D9D73F79-3A58-4772-96AE-652552AF2A02}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{D9D73F79-3A58-4772-96AE-652552AF2A02}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{D9D73F79-3A58-4772-96AE-652552AF2A02}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{D9D73F79-3A58-4772-96AE-652552AF2A02}.Debug|Mixed Platforms.ActiveCfg = Debug|x64
+		{D9D73F79-3A58-4772-96AE-652552AF2A02}.Debug|Mixed Platforms.Build.0 = Debug|x64
 		{D9D73F79-3A58-4772-96AE-652552AF2A02}.Debug|x64.ActiveCfg = Debug|x64
 		{D9D73F79-3A58-4772-96AE-652552AF2A02}.Debug|x64.Build.0 = Debug|x64
 		{D9D73F79-3A58-4772-96AE-652552AF2A02}.Debug|x86.ActiveCfg = Debug|x86

@@ -17,7 +17,7 @@ namespace ServiceApp
 		static void Main(string[] args)
 		{
 			string srvCertCN = Formatter.ParseName(WindowsIdentity.GetCurrent().Name);
-
+			//srvCertCN = "wcfservice";
 			NetTcpBinding binding = new NetTcpBinding();
 			binding.Security.Transport.ClientCredentialType = TcpClientCredentialType.Certificate;
 

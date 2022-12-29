@@ -21,9 +21,10 @@ namespace ClientApp
 			NetTcpBinding binding = new NetTcpBinding();
 			binding.Security.Transport.ClientCredentialType = TcpClientCredentialType.Certificate;
 
-			//SERVERSKI SERTIFIKAT IZ TRUSTED PEOPLE I PRAVLJENJE PROXYJA
+            //SERVERSKI SERTIFIKAT IZ TRUSTED PEOPLE I PRAVLJENJE PROXYJA
 			string signatureCertificateCN = Formatter.ParseName(WindowsIdentity.GetCurrent().Name);
-			X509Certificate2 signatureCertificate = CertManager.GetCertificateFromStorage(StoreName.My, StoreLocation.LocalMachine, signatureCertificateCN);
+            Console.WriteLine("test -> " + signatureCertificateCN);
+			X509Certificate2 signatureCertificate = CertManager.GetCertificateFromStorage(StoreName.My, StoreLocation.LocalMachine, signatureCertificateCN + "_sign");
 			
 			X509Certificate2 srvCert = CertManager.GetCertificateFromStorage(StoreName.TrustedPeople,StoreLocation.LocalMachine, serverCertNC);
 			EndpointAddress CommunicationEndpointAddress = new EndpointAddress(new Uri("net.tcp://localhost:8086/CommunicationService"), new X509CertificateEndpointIdentity(srvCert));
@@ -41,14 +42,13 @@ namespace ClientApp
 
 			while(true)
 			{
-				//proxyCommunication.TestCommunication();
+				proxyCommunication.TestCommunication();
                 Console.WriteLine("--------------------------------------------------------------");
 				Console.WriteLine("Stisni ENTER da startujes slanje poruke. IZLAZ - za izlaz");
 				Console.WriteLine("--------------------------------------------------------------");
 				if (Console.ReadLine().ToUpper().Equals("IZLAZ"))
 					break;
 				lockBaze = proxyCommunication.SendMessage(ClientCmds.start, signatureStartPoruke);
-				Thread.Sleep(2000);
                 Console.WriteLine("Slanje poruke...");
 				if (lockBaze)
                 {

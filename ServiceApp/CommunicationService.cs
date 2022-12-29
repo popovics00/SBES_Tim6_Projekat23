@@ -18,7 +18,7 @@ namespace ServiceApp
             //DIGITALNI POTPIS PROVERA
             var primIdentityName = ServiceSecurityContext.Current.PrimaryIdentity.Name;
             string curentClientName = Formatter.ParseName(primIdentityName).Split(',')[0];
-            X509Certificate2 certificate = CertManager.GetCertificateFromStorage(StoreName.TrustedPeople, StoreLocation.LocalMachine, curentClientName);
+            X509Certificate2 certificate = CertManager.GetCertificateFromStorage(StoreName.TrustedPeople, StoreLocation.LocalMachine, curentClientName+"_sign");
             if (!DigitalSignature.Verify(cmdForClient.ToString(), Hash.SHA1, digSignature, certificate))
             {
                 Console.WriteLine("ALERT | Digitalni potpis nije validan!");

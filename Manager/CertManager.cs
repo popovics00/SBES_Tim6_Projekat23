@@ -18,6 +18,7 @@ namespace Manager
 
             foreach (X509Certificate2 cert in certCollection)
             {
+                Console.WriteLine(cert.SubjectName.Name);
                 if (cert.SubjectName.Name.Contains(string.Format("CN={0}", subjectName)))
                 {
                     return cert;

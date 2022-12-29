@@ -13,13 +13,12 @@ KOMANDE >>
 
 
 - Sertifikati za klijentske naloge
-	makecert -sv SenzorPritiska1.pvk -iv Sertifikati23zad.pvk -n "CN=senzorPritiska1,OU=SenzorPritiska" -pe -ic Sertifikati23zad.cer SenzorPritiska1.cer -sr localmachine -ss My -sky signature
-	makecert -sv SenzorPritiska2.pvk -iv Sertifikati23zad.pvk -n "CN=senzorPritiska2,OU=SenzorPritiska" -pe -ic Sertifikati23zad.cer SenzorPritiska2.cer -sr localmachine -ss My -sky signature
-	makecert -sv SenzorTemperature1.pvk -iv Sertifikati23zad.pvk -n "CN=senzorTemperature1,OU=SenzorTemperature" -pe -ic Sertifikati23zad.cer SenzorTemperature1.cer -sr localmachine -ss My -sky signature
-	makecert -sv SenzorTemperature2.pvk -iv Sertifikati23zad.pvk -n "CN=senzorTemperature2,OU=SenzorTemperature" -pe -ic Sertifikati23zad.cer SenzorTemperature2.cer -sr localmachine -ss My -sky signature
-	makecert -sv SenzorVlaznosti1.pvk -iv Sertifikati23zad.pvk -n "CN=senzorVlaznosti1,OU=SenzorVlaznosti" -pe -ic Sertifikati23zad.cer SenzorVlaznosti1.cer -sr localmachine -ss My -sky signature
-	makecert -sv SenzorVlaznosti2.pvk -iv Sertifikati23zad.pvk -n "CN=senzorVlaznosti2,OU=SenzorVlaznosti" -pe -ic Sertifikati23zad.cer SenzorVlaznosti2.cer -sr localmachine -ss My -sky signature
-
+	makecert -sv SenzorPritiska1.pvk -iv Sertifikati23zad.pvk -n "CN=senzorPritiska1,OU=SenzorPritiska" -pe -ic Sertifikati23zad.cer SenzorPritiska1.cer -sr localmachine -ss My -sky exchange
+	makecert -sv SenzorPritiska2.pvk -iv Sertifikati23zad.pvk -n "CN=senzorPritiska2,OU=SenzorPritiska" -pe -ic Sertifikati23zad.cer SenzorPritiska2.cer -sr localmachine -ss My -sky exchange
+	makecert -sv SenzorTemperature1.pvk -iv Sertifikati23zad.pvk -n "CN=senzorTemperature1,OU=SenzorTemperature" -pe -ic Sertifikati23zad.cer SenzorTemperature1.cer -sr localmachine -ss My -sky exchange
+	makecert -sv SenzorTemperature2.pvk -iv Sertifikati23zad.pvk -n "CN=senzorTemperature2,OU=SenzorTemperature" -pe -ic Sertifikati23zad.cer SenzorTemperature2.cer -sr localmachine -ss My -sky exchange
+	makecert -sv SenzorVlaznosti1.pvk -iv Sertifikati23zad.pvk -n "CN=senzorVlaznosti1,OU=SenzorVlaznosti" -pe -ic Sertifikati23zad.cer SenzorVlaznosti1.cer -sr localmachine -ss My -sky exchange
+	makecert -sv SenzorVlaznosti2.pvk -iv Sertifikati23zad.pvk -n "CN=senzorVlaznosti2,OU=SenzorVlaznosti" -pe -ic Sertifikati23zad.cer SenzorVlaznosti2.cer -sr localmachine -ss My -sky exchange
 
 	pvk2pfx.exe /pvk SenzorPritiska1.pvk /pi 123456 /spc SenzorPritiska1.cer /pfx SenzorPritiska1.pfx
 	pvk2pfx.exe /pvk SenzorPritiska2.pvk /pi 123456 /spc SenzorPritiska2.cer /pfx SenzorPritiska2.pfx
@@ -28,7 +27,20 @@ KOMANDE >>
 	pvk2pfx.exe /pvk SenzorVlaznosti1.pvk /pi 123456 /spc SenzorVlaznosti1.cer /pfx SenzorVlaznosti1.pfx
 	pvk2pfx.exe /pvk SenzorVlaznosti2.pvk /pi 123456 /spc SenzorVlaznosti2.cer /pfx SenzorVlaznosti2.pfx
 
-
+	makecert -sv SenzorPritiska1sig.pvk -iv Sertifikati23zad.pvk -n "CN=senzorPritiska1_sign,OU=SenzorPritiska" -pe -ic Sertifikati23zad.cer SenzorPritiska1sig.cer -sr localmachine -ss My -sky signature
+	makecert -sv SenzorPritiska2sig.pvk -iv Sertifikati23zad.pvk -n "CN=senzorPritiska2_sign,OU=SenzorPritiska" -pe -ic Sertifikati23zad.cer SenzorPritiska2sig.cer -sr localmachine -ss My -sky signature
+	makecert -sv SenzorTemperature1sig.pvk -iv Sertifikati23zad.pvk -n "CN=senzorTemperature1_sign,OU=SenzorTemperature" -pe -ic Sertifikati23zad.cer SenzorTemperature1sig.cer -sr localmachine -ss My -sky signature
+	makecert -sv SenzorTemperature2sig.pvk -iv Sertifikati23zad.pvk -n "CN=senzorTemperature2_sign,OU=SenzorTemperature" -pe -ic Sertifikati23zad.cer SenzorTemperature2sig.cer -sr localmachine -ss My -sky signature
+	makecert -sv SenzorVlaznosti1sig.pvk -iv Sertifikati23zad.pvk -n "CN=senzorVlaznosti1_sign,OU=SenzorTemperature" -pe -ic Sertifikati23zad.cer SenzorVlaznosti1sig.cer -sr localmachine -ss My -sky signature
+	makecert -sv SenzorVlaznosti2sig.pvk -iv Sertifikati23zad.pvk -n "CN=senzorVlaznosti2_sign,OU=SenzorTemperature" -pe -ic Sertifikati23zad.cer SenzorVlaznosti2sig.cer -sr localmachine -ss My -sky signature
+	
+	pvk2pfx.exe /pvk SenzorPritiska1sig.pvk /pi 123456 /spc SenzorPritiska1sig.cer /pfx SenzorPritiska1sig.pfx
+	pvk2pfx.exe /pvk SenzorPritiska2sig.pvk /pi 123456 /spc SenzorPritiska2sig.cer /pfx SenzorPritiska2sig.pfx
+	pvk2pfx.exe /pvk SenzorTemperature1sig.pvk /pi 123456 /spc SenzorTemperature1sig.cer /pfx SenzorTemperature1sig.pfx
+	pvk2pfx.exe /pvk SenzorTemperature2sig.pvk /pi 123456 /spc SenzorTemperature2sig.cer /pfx SenzorTemperature2sig.pfx
+	pvk2pfx.exe /pvk SenzorVlaznosti1sig.pvk /pi 123456 /spc SenzorVlaznosti1sig.cer /pfx SenzorVlaznosti1sig.pfx
+	pvk2pfx.exe /pvk SenzorVlaznosti2sig.pvk /pi 123456 /spc SenzorVlaznosti2sig.cer /pfx SenzorVlaznosti2sig.pfx
+	
 USERNAMEovi: (sifre za sve su 123456)
 senzorPritiska1, senzorPritiska2, senzorTemperature1, senzorTemperature2, senzorVlaznosti1, senzorVlaznosti2
 

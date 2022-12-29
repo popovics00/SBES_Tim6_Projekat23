@@ -13,30 +13,51 @@ namespace Manager
     {
         public static byte[] Create(string message, Hash hashAlgorithm, X509Certificate2 certificate)
         {
-            RSACryptoServiceProvider privateKey = certificate.PrivateKey as RSACryptoServiceProvider;
+            /// Looks for the certificate's private key to sign a message
+            RSACryptoServiceProvider csp = (RSACryptoServiceProvider)certificate.PrivateKey;
 
-            if (privateKey == null)
-                throw new Exception("Sertifikat nije pronadjen");
+            if (csp == null)
+            {
+                throw new Exception("Valid certificate was not found.");
+            }
+            UnicodeEncoding encoding = new UnicodeEncoding();
+            byte[] data = encoding.GetBytes(message);
+            byte[] hash = null;
 
-            byte[] messageByte = new UnicodeEncoding().GetBytes(message);
-            byte[] hash = new SHA1Managed().ComputeHash(messageByte);
-
-            byte[] digSignature = privateKey.SignHash(hash, CryptoConfig.MapNameToOID(hashAlgorithm.ToString()));
-
-            return digSignature;
+            if (hashAlgorithm.Equals(Hash.SHA1))
+            {
+                SHA1Managed sha1 = new SHA1Managed();
+                hash = sha1.ComputeHash(data);
+            }
+            else if (hashAlgorithm.Equals(Hash.SHA256))
+            {
+                SHA256Managed sha256 = new SHA256Managed();
+                hash = sha256.ComputeHash(data);
+            }
+            /// Use RSACryptoServiceProvider support to create a signature using a previously created hash value
+            byte[] signature = csp.SignHash(hash, CryptoConfig.MapNameToOID(hashAlgorithm.ToString()));
+            return signature;
         }
         public static bool Verify(string message, Hash hashAlgorithm, byte[] digSignature, X509Certificate2 certificate)
         {
-            RSACryptoServiceProvider privateKey = certificate.PublicKey.Key as RSACryptoServiceProvider;
+            RSACryptoServiceProvider csp = (RSACryptoServiceProvider)certificate.PublicKey.Key;
 
-            if (privateKey == null)
-                throw new Exception("Sertifikat nije pronadjen");
+            UnicodeEncoding encoding = new UnicodeEncoding();
+            byte[] data = encoding.GetBytes(message);
+            byte[] hash = null;
 
-            byte[] messageByte = new UnicodeEncoding().GetBytes(message);
-            byte[] hash = new SHA1Managed().ComputeHash(messageByte);
+            if (hashAlgorithm.Equals(Hash.SHA1))
+            {
+                SHA1Managed sha1 = new SHA1Managed();
+                hash = sha1.ComputeHash(data);
+            }
+            else if (hashAlgorithm.Equals(Hash.SHA256))
+            {
+                SHA256Managed sha256 = new SHA256Managed();
+                hash = sha256.ComputeHash(data);
+            }
 
-            return privateKey.VerifyHash(hash, CryptoConfig.MapNameToOID(hashAlgorithm.ToString()), digSignature);
-
+            return csp.VerifyHash(hash, CryptoConfig.MapNameToOID(hashAlgorithm.ToString()), digSignature);
         }
     }
 }
