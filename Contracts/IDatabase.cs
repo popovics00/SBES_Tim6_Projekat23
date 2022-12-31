@@ -10,15 +10,15 @@ namespace Contracts
 	public interface IDatabase
 	{
         [OperationContract]
-        void WriteToSenzorTemperatureDB(string report, byte[] sign);
+        void WriteToSenzorTemperatureDB(string report, byte[] sign); // pisanje u bazu senzora temperature
 
         [OperationContract]
-        void WriteToSenzorVlaznostiDB(string report, byte[] sign);
+        void WriteToSenzorVlaznostiDB(string report, byte[] sign); 
 
         [OperationContract]
         void WriteToSenzorPritiskaDB(string report, byte[] sign);
 
         [OperationContract]
-        void TestCommunication();
+        void TestCommunication(); // iniicjalna test komunikacija za testiranje servisa komunikacije sa bazom
     }
 }

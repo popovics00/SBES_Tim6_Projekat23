@@ -11,10 +11,10 @@ namespace Contracts
 	public interface ICComunication
 	{
 		[OperationContract]
-		bool SendMessage(ClientCmds cmdForClient, byte[] sign);
+		bool SendMessage(ClientCmds cmdForClient, byte[] sign); // slanje START/STOP komande za zauzimanje baze
 
 		[OperationContract]
-		void TestCommunication();
+		void TestCommunication();	// inicijalno testiranje komunikacije Comunication servisa
 
 	}
 }
