@@ -6,7 +6,6 @@ Rastislav Zaskalicki <b>PR77/2019</b> <br>
 
 ZADATAK:
 https://prnt.sc/sivT9wm9Dklq
-
 <br><br>
 <b>Passwords:</b>
 123456<br>
