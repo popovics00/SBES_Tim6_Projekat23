@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
+using System.Security.Principal;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,8 @@ namespace ServiceApp
         {
             //DIGITALNI POTPIS PROVERA
             var primIdentityName = ServiceSecurityContext.Current.PrimaryIdentity.Name;
+            //var primIdentityName = WindowsIdentity.GetCurrent().Name;
+            primIdentityName=primIdentityName.Replace("_sign", "");
             string curentClientName = Formatter.ParseName(primIdentityName).Split(',')[0];
             X509Certificate2 certificate = CertManager.GetCertificateFromStorage(StoreName.TrustedPeople, StoreLocation.LocalMachine, curentClientName+"_sign");
             if (!DigitalSignature.Verify(cmdForClient.ToString(), Hash.SHA1, digSignature, certificate))
