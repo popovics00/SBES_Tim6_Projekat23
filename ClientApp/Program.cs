@@ -35,11 +35,11 @@ namespace ClientApp
 			EndpointAddress DbEndpointAddress = new EndpointAddress(new Uri("net.tcp://localhost:8096/DbService"), new X509CertificateEndpointIdentity(srvCert));
 
 			ClientToClient proxyCommunication = new ClientToClient(binding, CommunicationEndpointAddress);
-			//ClientToDb proxyDB = new ClientToDb(binding, DbEndpointAddress);
- 
+			ClientToDb proxyDB = new ClientToDb(binding, DbEndpointAddress);
 
-			//UTVRDJUJEMO GRUPU
-			UserGroup group = proxyCommunication.group; // grupa korisnika koji je pokrenuo konzolu
+            #region CommunicationWithClient
+            //UTVRDJUJEMO GRUPU
+            UserGroup group = proxyCommunication.group; // grupa korisnika koji je pokrenuo konzolu
             Console.WriteLine("\n\t\tVasa grupe je: " + group+"!\n\n");
 
 			while(true)
@@ -58,23 +58,27 @@ namespace ClientApp
                 {
                     Console.WriteLine("Spremni smo za slanje poruka.");
 					
-					string poruka = "Funkcija za generisanje poruka"; // ovo milos menja i generise kasnije
-					
+					string poruka = CreateMessageDb(group); // ovo milos menja i generise kasnije
+					Console.WriteLine(poruka);
+
 					signaturePoruke = DigitalSignature.Create(poruka, Hash.SHA1, signatureCertificate);
 					if(group == UserGroup.SenzorPritiska)
 					{
                         Console.WriteLine("Senzor pritiska odradjen");
+						proxyDB.WriteToSenzorPritiskaDB(poruka, signaturePoruke);
 						proxyCommunication.SendMessage(ClientCmds.stop, signatureStopPoruke);
 					}
 					else if(group == UserGroup.SenzorTemperature)
                     {
 						Console.WriteLine("Senzor temperature odradjen");
-						proxyCommunication.SendMessage(ClientCmds.stop, signatureStopPoruke);
+                        proxyDB.WriteToSenzorTemperatureDB(poruka, signaturePoruke);
+                        proxyCommunication.SendMessage(ClientCmds.stop, signatureStopPoruke);
 					}
 					else if(group == UserGroup.SenzorVlaznosti)
                     {
 						Console.WriteLine("Senzor vlaznosti odradjen");
-						proxyCommunication.SendMessage(ClientCmds.stop, signatureStopPoruke);
+                        proxyDB.WriteToSenzorVlaznostiDB(poruka, signaturePoruke);
+                        proxyCommunication.SendMessage(ClientCmds.stop, signatureStopPoruke);
                     }
                     else
                     {
@@ -84,6 +88,29 @@ namespace ClientApp
 				}
 
 			}
-		}
-	}
+            #endregion
+        }
+        // Kreiranje poruke za upis u BP
+        private static string CreateMessageDb(UserGroup group)
+        {
+            Random random = new Random();
+            string myUsername = Formatter.ParseName(WindowsIdentity.GetCurrent().Name);
+            string value = string.Empty;
+
+            switch (group)
+            {
+                case UserGroup.SenzorPritiska:
+                    value = $"Value: {random.Next(-100, 100)} [Pa]";
+                    break;
+                case UserGroup.SenzorTemperature:
+                    value = $"Value: {random.Next(-100, 100)} [C]";
+                    break;
+                case UserGroup.SenzorVlaznosti:
+                    value = $"Value: {random.Next(-100, 100)} [%]";
+                    break;
+            }
+
+            return $"Time: {DateTime.Now}, Username: {myUsername}, GroupName: {group.ToString()}, {value}";
+        }
+    }
 }

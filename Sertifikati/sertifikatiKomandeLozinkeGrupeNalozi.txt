@@ -31,8 +31,8 @@ KOMANDE >>
 	makecert -sv SenzorPritiska2sig.pvk -iv Sertifikati23zad.pvk -n "CN=senzorPritiska2_sign,OU=SenzorPritiska" -pe -ic Sertifikati23zad.cer SenzorPritiska2sig.cer -sr localmachine -ss My -sky signature
 	makecert -sv SenzorTemperature1sig.pvk -iv Sertifikati23zad.pvk -n "CN=senzorTemperature1_sign,OU=SenzorTemperature" -pe -ic Sertifikati23zad.cer SenzorTemperature1sig.cer -sr localmachine -ss My -sky signature
 	makecert -sv SenzorTemperature2sig.pvk -iv Sertifikati23zad.pvk -n "CN=senzorTemperature2_sign,OU=SenzorTemperature" -pe -ic Sertifikati23zad.cer SenzorTemperature2sig.cer -sr localmachine -ss My -sky signature
-	makecert -sv SenzorVlaznosti1sig.pvk -iv Sertifikati23zad.pvk -n "CN=senzorVlaznosti1_sign,OU=SenzorTemperature" -pe -ic Sertifikati23zad.cer SenzorVlaznosti1sig.cer -sr localmachine -ss My -sky signature
-	makecert -sv SenzorVlaznosti2sig.pvk -iv Sertifikati23zad.pvk -n "CN=senzorVlaznosti2_sign,OU=SenzorTemperature" -pe -ic Sertifikati23zad.cer SenzorVlaznosti2sig.cer -sr localmachine -ss My -sky signature
+	makecert -sv SenzorVlaznosti1sig.pvk -iv Sertifikati23zad.pvk -n "CN=senzorVlaznosti1_sign,OU=SenzorVlaznosti" -pe -ic Sertifikati23zad.cer SenzorVlaznosti1sig.cer -sr localmachine -ss My -sky signature
+	makecert -sv SenzorVlaznosti2sig.pvk -iv Sertifikati23zad.pvk -n "CN=senzorVlaznosti2_sign,OU=SenzorVlaznosti" -pe -ic Sertifikati23zad.cer SenzorVlaznosti2sig.cer -sr localmachine -ss My -sky signature
 	
 	pvk2pfx.exe /pvk SenzorPritiska1sig.pvk /pi 123456 /spc SenzorPritiska1sig.cer /pfx SenzorPritiska1sig.pfx
 	pvk2pfx.exe /pvk SenzorPritiska2sig.pvk /pi 123456 /spc SenzorPritiska2sig.cer /pfx SenzorPritiska2sig.pfx
@@ -46,9 +46,3 @@ senzorPritiska1, senzorPritiska2, senzorTemperature1, senzorTemperature2, senzor
 
 GRUPE:
 SenzorPritiska, SenzorTemperature, SenzorVlaznosti
-
-
-INSTALACIJA:
-Trusted: WCFService.CA i od usera _SIGN sve .CA sertifikate 
-Personal: WCFService, _sign svi i korisninika svi .PFX i private key onoga kome je namenjen
-Trusted Root: Sertifikati23zad.ca

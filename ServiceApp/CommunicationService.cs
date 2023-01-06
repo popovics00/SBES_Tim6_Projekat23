@@ -44,7 +44,7 @@ namespace ServiceApp
                 {
                     lock (DbService.senzoPritiskaDatabaseOpenLock)
                     {
-                        DbService.senzoPritiskaDatabaseOpen = true;
+                        DbService.senzorPritiskaDatabaseOpen = true;
                     }
                     Console.WriteLine("DATABASE (SenzorPritiskaDB) | Baza je sada otkljucana");
                     return true;
@@ -53,14 +53,14 @@ namespace ServiceApp
                 {
                     lock (DbService.senzoPritiskaDatabaseOpenLock)
                     {
-                        if (!DbService.senzoPritiskaDatabaseOpen)
+                        if (!DbService.senzorPritiskaDatabaseOpen)
                         {
                             Console.WriteLine("DATABASE (SenzorPritiskaDB) | Pristup bazi je BLOKIRAN, pa ne mozete pristupiti");
                             return false;
                         }
                         else
                         {
-                            DbService.senzoPritiskaDatabaseOpen = false;
+                            DbService.senzorPritiskaDatabaseOpen = false;
                             Console.WriteLine("DATABASE (SenzorPritiskaDB) | Baza je sada zakljucan");
                             return true;
                         }
