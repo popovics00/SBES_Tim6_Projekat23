@@ -3,6 +3,7 @@ using Contracts.Enums;
 using Manager;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Principal;
@@ -14,28 +15,43 @@ namespace ServiceApp
 {
     public class ComunicationService : DbService, ICComunication
     {
+        private static EventLog eventLog = null;
         public bool SendMessage(ClientCmds cmdForClient, byte[] digSignature)
         {
             //DIGITALNI POTPIS PROVERA
             var primIdentityName = ServiceSecurityContext.Current.PrimaryIdentity.Name;
-            //var primIdentityName = WindowsIdentity.GetCurrent().Name;
             primIdentityName=primIdentityName.Replace("_sign", "");
             string curentClientName = Formatter.ParseName(primIdentityName).Split(',')[0];
             X509Certificate2 certificate = CertManager.GetCertificateFromStorage(StoreName.TrustedPeople, StoreLocation.LocalMachine, curentClientName+"_sign");
+            
+            // Log uspesne autentifikacije
+            if (!EventLog.SourceExists("AuditSbes"))
+                EventLog.CreateEventSource("AuditSbes", "SbesLog");
+            
+            eventLog = new EventLog("SbesLog", Environment.MachineName, "AuditSbes");
+            //eventLog.Source = "CommService";
+            
+
             if (!DigitalSignature.Verify(cmdForClient.ToString(), Hash.SHA1, digSignature, certificate))
             {
                 Console.WriteLine("ALERT | Digitalni potpis nije validan!");
+                eventLog.WriteEntry("SendMessage ---- Klijent nije autentifikovan", EventLogEntryType.Error, 101, 1);
                 throw new Exception("Potpis nije validan!");
             }
+            eventLog.WriteEntry("SendMessage ---- Klijent je uspesno autentifikovan", EventLogEntryType.SuccessAudit, 101, 1);
+
+           
             //UTVRDJIVANJE PRAVA KORISNIKA - AUTORIZACIJA
             UserGroup group = CertManager.GetMyGroupFromCert(certificate);
             if (RolesSettings.IsInRole(group.ToString(), "SendMessage"))
             {
                 Console.WriteLine("INFO | Klijent {0} - {1} je autorizovan da zapocne komunikaciju.", curentClientName, group.ToString());
+                eventLog.WriteEntry("SendMessage ---- Klijent je uspesno autorizovan", EventLogEntryType.SuccessAudit, 101, 1);
             }
             else
             {
                 Console.WriteLine("INFO | Klijent nema permisiju za komunikaciju sa serverom.");
+                eventLog.WriteEntry("SendMessage ---- Klijent nije autorizovan!", EventLogEntryType.Error, 101, 1);
                 throw new Exception("ERROR | Access denied!");
             }
             if (group == UserGroup.SenzorPritiska)
