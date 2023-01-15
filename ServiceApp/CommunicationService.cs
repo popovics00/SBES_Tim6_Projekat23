@@ -95,7 +95,7 @@ namespace ServiceApp
                     {
                         DbService.senzorTemperatureDatabaseOpen = true;
                     }
-                    Console.WriteLine("DATABASE (SenzorPritiskaDB) | Baza je sada otkljucana");
+                    Console.WriteLine("DATABASE (SenzorTemperatureDB) | Baza je sada otkljucana");
                     return true;
                 }
                 else if (cmdForClient.ToString().ToLower().Equals("start"))
@@ -104,13 +104,13 @@ namespace ServiceApp
                     {
                         if (!DbService.senzorTemperatureDatabaseOpen)
                         {
-                            Console.WriteLine("DATABASE (SenzorPritiskaDB) | Pristup bazi je BLOKIRAN, pa ne mozete pristupiti");
+                            Console.WriteLine("DATABASE (SenzorTemperatureDB) | Pristup bazi je BLOKIRAN, pa ne mozete pristupiti");
                             return false;
                         }
                         else
                         {
                             DbService.senzorTemperatureDatabaseOpen = false;
-                            Console.WriteLine("DATABASE (SenzorPritiskaDB) | Baza je sada zakljucan");
+                            Console.WriteLine("DATABASE (SenzorTemperatureDB) | Baza je sada zakljucan");
                             return true;
                         }
                     }
@@ -128,7 +128,7 @@ namespace ServiceApp
                     {
                         DbService.senzorVlaznostiDatabaseOpen = true;
                     }
-                    Console.WriteLine("DATABASE (SenzorPritiskaDB) | Baza je sada otkljucana");
+                    Console.WriteLine("DATABASE (SenzorVlaznostiDB) | Baza je sada otkljucana");
                     return true;
                 }
                 else if (cmdForClient.ToString().ToLower().Equals("start"))
@@ -137,13 +137,13 @@ namespace ServiceApp
                     {
                         if (!DbService.senzorVlaznostiDatabaseOpen)
                         {
-                            Console.WriteLine("DATABASE (SenzorPritiskaDB) | Pristup bazi je BLOKIRAN, pa ne mozete pristupiti");
+                            Console.WriteLine("DATABASE (SenzorVlaznostiDB) | Pristup bazi je BLOKIRAN, pa ne mozete pristupiti");
                             return false;
                         }
                         else
                         {
                             DbService.senzorVlaznostiDatabaseOpen = false;
-                            Console.WriteLine("DATABASE (SenzorPritiskaDB) | Baza je sada zakljucan");
+                            Console.WriteLine("DATABASE (SenzorVlaznostiDB) | Baza je sada zakljucan");
                             return true;
                         }
                     }

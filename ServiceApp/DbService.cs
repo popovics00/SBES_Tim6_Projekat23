@@ -16,7 +16,8 @@ namespace ServiceApp
 {
     public class DbService : IDatabase
     {
-        private static string[] dataBasePaths = { "C:\\CETVRTA GODINA - VEZBE\\SBES\\SBES_Tim6_Projekat23\\Database\\" };
+        //private static string[] dataBasePaths = { "C:\\CETVRTA GODINA - VEZBE\\SBES\\SBES_Tim6_Projekat23\\Database\\" };
+        private static string[] dataBasePaths = { "C:\\Users\\stefa\\Desktop\\SBES_Tim6_Projekat23\\Database\\" };
 
         public static bool senzorPritiskaDatabaseOpen = true;
         public static bool senzorTemperatureDatabaseOpen = true;
