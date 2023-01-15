@@ -59,7 +59,7 @@ namespace ServiceApp
 
             //UTVRDJIVANJE PRAVA KORISNIKA - AUTORIZACIJA
             UserGroup group = CertManager.GetMyGroupFromCert(certificate);
-            if (RolesSettings.IsInRole(group.ToString(), "SendMessage"))
+            if (RolesSettings.IsInRole(group.ToString(), "WriteToSenzorPritiskaDB"))
             {
                 Console.WriteLine("INFO | Klijent {0} - {1} je autorizovan da zapocne komunikaciju.", curentClientName, group.ToString());
                 eventLog.WriteEntry("WriteToSenzorPritiskaDB ---- Klijent je uspesno autorizovan", EventLogEntryType.SuccessAudit, 101, 1);
@@ -115,7 +115,7 @@ namespace ServiceApp
 
             //UTVRDJIVANJE PRAVA KORISNIKA - AUTORIZACIJA
             UserGroup group = CertManager.GetMyGroupFromCert(certificate);
-            if (RolesSettings.IsInRole(group.ToString(), "SendMessage"))
+            if (RolesSettings.IsInRole(group.ToString(), "WriteToSenzorTemperatureDB"))
             {
                 Console.WriteLine("INFO | Klijent {0} - {1} je autorizovan da zapocne komunikaciju.", curentClientName, group.ToString());
                 eventLog.WriteEntry("WriteToSenzorTemperatureDB ---- Klijent je uspesno autorizovan", EventLogEntryType.SuccessAudit, 101, 1);
@@ -172,7 +172,7 @@ namespace ServiceApp
 
             //UTVRDJIVANJE PRAVA KORISNIKA - AUTORIZACIJA
             UserGroup group = CertManager.GetMyGroupFromCert(certificate);
-            if (RolesSettings.IsInRole(group.ToString(), "SendMessage"))
+            if (RolesSettings.IsInRole(group.ToString(), "WriteToSenzorVlaznostiDB"))
             {
                 eventLog.WriteEntry("WriteToSenzorVlaznostiDB ---- Klijent je uspesno autorizovan", EventLogEntryType.SuccessAudit, 101, 1);
                 Console.WriteLine("INFO | Klijent {0} - {1} je autorizovan da zapocne komunikaciju.", curentClientName, group.ToString());

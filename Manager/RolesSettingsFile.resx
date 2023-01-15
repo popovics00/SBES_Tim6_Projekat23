@@ -118,12 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="SenzorPritiska" xml:space="preserve">
-    <value>SendMessage, WriteToSenzorPritiskaDB</value>
+    <value>SendMessage,WriteToSenzorPritiskaDB</value>
   </data>
   <data name="SenzorTemperature" xml:space="preserve">
-    <value>SendMessage, WriteToSenzorTemperatureDB</value>
+    <value>SendMessage,WriteToSenzorTemperatureDB</value>
   </data>
   <data name="SenzorVlaznosti" xml:space="preserve">
-    <value>SendMessage, WriteToSenzorVlaznostiDB</value>
+    <value>SendMessage,WriteToSenzorVlaznostiDB</value>
   </data>
 </root>
